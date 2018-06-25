@@ -21,8 +21,6 @@ class Album extends Component {
 
 		this.audioElement = document.createElement('audio');
      	this.audioElement.src = album.songs[0].audioSrc;
-     	this.mouseEnter = this.mouseEnter.bind(this);
-     	this.mouseLeave = this.mouseLeave.bind(this);
 	}
 
 	play() {
@@ -47,15 +45,6 @@ class Album extends Component {
    		}
    	}
 
-   	mouseEnter(index) {
-   		this.setState({hover: true});
-   		{<img src = "ios-play">};
-   	}
-
-   	mouseLeave(index) {
-   		(this.setState({hover: false})) 
-   		{<img src = "ios-pause">};
-   	}
 
 
 
@@ -81,8 +70,8 @@ class Album extends Component {
 					this.state.album.songs.map( (song, index) => 
 								<tr className="song" key={index} onClick={() => this.handleSongClick(song)} >
 									<div>
-									<Ionicon icon="ios-play" fontSize="40px" color="green" />	 
-									<tr id="song-index" onMouseEnter({this.mouseEnter}) > {index + 1} </tr>
+									<ion-tr id="song-index" ion-icon="ios-play"> {index + 1} </ion-tr>
+									<Ionicon id="hover-play" icon="ios-play" fontSize="40px" color="green"> </Ionicon>	 
 									<tr id="song-title">{song.title}</tr>
 									<tr id="song-duration">{song.duration}</tr>
 									</div>
@@ -97,7 +86,5 @@ class Album extends Component {
 	}
 }
 
-
-/* test */
 
 export default Album;

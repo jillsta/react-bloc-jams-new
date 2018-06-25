@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import albumData from './../data/albums';
 import { Link } from 'react-router-dom';
+import Ionicon from 'react-ionicons';
 
 
 class Album extends Component {
 	constructor(props) {
 		super(props);
+
 		const album = albumData.find( album => {
 			return album.slug === this.props.match.params.slug
 		});
@@ -13,11 +15,14 @@ class Album extends Component {
 		this.state = {
 			album: album,
       		currentSong: album.songs[0],
-      		isPlaying: false
+      		isPlaying: false,
+      		hover: false
 		};
 
 		this.audioElement = document.createElement('audio');
      	this.audioElement.src = album.songs[0].audioSrc;
+     	this.mouseEnter = this.mouseEnter.bind(this);
+     	this.mouseLeave = this.mouseLeave.bind(this);
 	}
 
 	play() {
@@ -42,6 +47,17 @@ class Album extends Component {
    		}
    	}
 
+   	mouseEnter(index) {
+   		this.setState({hover: true});
+   		{<img src = "ios-play">};
+   	}
+
+   	mouseLeave(index) {
+   		(this.setState({hover: false})) 
+   		{<img src = "ios-pause">};
+   	}
+
+
 
 	render() {
 		return (
@@ -63,30 +79,25 @@ class Album extends Component {
 					<tbody>
 					{
 					this.state.album.songs.map( (song, index) => 
-								<tr className="song" key={index} onClick={() => this.handleSongClick(song)} >	 
+								<tr className="song" key={index} onClick={() => this.handleSongClick(song)} >
 									<div>
-									<tr id="song-index"> {index + 1} </tr>
+									<Ionicon icon="ios-play" fontSize="40px" color="green" />	 
+									<tr id="song-index" onMouseEnter({this.mouseEnter}) > {index + 1} </tr>
 									<tr id="song-title">{song.title}</tr>
 									<tr id="song-duration">{song.duration}</tr>
-<<<<<<< HEAD
 									</div>
 								</tr>
-=======
-							</div>
-							</tr>
->>>>>>> HW-7-Audio
 					)						
-					}		
+					}	
+					<Ionicon icon="md-heart" fontSize="60px" color="red" beat={true} />	
 					</tbody>
 				</table>
 			</section>	
 			);
 	}
 }
-<<<<<<< HEAD
 
 
-=======
 /* test */
->>>>>>> HW-7-Audio
+
 export default Album;

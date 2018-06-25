@@ -25,5 +25,5 @@ class App extends Component {
     );
   }
 }
-<script src="https://unpkg.com/ionicons@4.2.0/dist/ionicons.js"></script>
+/*<script src="https://unpkg.com/ionicons@4.2.0/dist/ionicons.js"></script>*/
 export default App;

@@ -17,8 +17,6 @@ class Album extends Component {
       		currentSong: album.songs[0],
       		isPlaying: false,
       		hover: false,
-      		playIcon: "ios-play",
-      		pauseIcon: "ios-pause",
 		};
 
 		this.audioElement = document.createElement('audio');
@@ -52,20 +50,17 @@ class Album extends Component {
    		}
    	}
 
-
-	onMouseEnter(song){
-	if (this.pause) {
-		return
-		this.setState({iconstyle.playIcon});
+	mouseHover(song){
+		if (this.state.isPlaying === false) {
+			console.log("this works");
+			}
+		 else {
+			console.log("this works too");
+			}
 		}
-		else {
-		this.setState({iconstyle.pauseIcon});
-	}
-	}
 	
 
 	
-
 	render() {
 		return (
 			<section className="album">
@@ -88,7 +83,7 @@ class Album extends Component {
 					this.state.album.songs.map( (song, index) => 
 								<tr className="song" key={index} onClick={() => this.handleSongClick(song)} >
 									<div>
-									<span class="play" color="red" onMouseEnter={ this.mouseEnter } id="song-index"> {index + 1} </span>
+									<span class="play" color="red" onMouseEnter={() => this.mouseHover(song)} id="song-index"> {index + 1} </span>
 									<tr id="song-title">{song.title}</tr>
 									<tr id="song-duration">{song.duration}</tr>
 									</div>

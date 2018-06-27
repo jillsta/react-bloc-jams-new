@@ -16,21 +16,28 @@ class Album extends Component {
 			album: album,
       		currentSong: album.songs[0],
       		isPlaying: false,
-      		hover: false
+      		hover: false,
+      		playIcon: "ios-play",
+      		pauseIcon: "ios-pause",
 		};
 
 		this.audioElement = document.createElement('audio');
      	this.audioElement.src = album.songs[0].audioSrc;
+     	this.onMouseEnter = this.setState({hover: true});
+     	this.onMouseLeave = this.setState({hover: false});
+
 	}
 
 	play() {
      this.audioElement.play();
      this.setState({ isPlaying: true });
    	}
+
    	pause() {
    		this.audioElement.pause();
    		this.setState({ isPlaying: false });
    	}
+
    	setSong(song) {
    		this.audioElement.src = song.audioSrc;
    		this.setState({ currentSong: song });
@@ -46,7 +53,18 @@ class Album extends Component {
    	}
 
 
+	onMouseEnter(song){
+	if (this.pause) {
+		return
+		this.setState({iconstyle.playIcon});
+		}
+		else {
+		this.setState({iconstyle.pauseIcon});
+	}
+	}
+	
 
+	
 
 	render() {
 		return (
@@ -70,15 +88,14 @@ class Album extends Component {
 					this.state.album.songs.map( (song, index) => 
 								<tr className="song" key={index} onClick={() => this.handleSongClick(song)} >
 									<div>
-									<ion-tr id="song-index" ion-icon="ios-play"> {index + 1} </ion-tr>
-									<Ionicon id="hover-play" icon="ios-play" fontSize="40px" color="green"> </Ionicon>	 
+									<span class="play" color="red" onMouseEnter={ this.mouseEnter } id="song-index"> {index + 1} </span>
 									<tr id="song-title">{song.title}</tr>
 									<tr id="song-duration">{song.duration}</tr>
 									</div>
 								</tr>
 					)						
 					}	
-					<Ionicon icon="md-heart" fontSize="60px" color="red" beat={true} />	
+					<Ionicon icon="md-heart" isActive="false" fontSize="60px" color="red" />	
 					</tbody>
 				</table>
 			</section>	

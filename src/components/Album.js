@@ -51,13 +51,16 @@ class Album extends Component {
    	}
 
 	mouseHover(song){
-		if (this.state.isPlaying === false) {
+		const hoverSong = this.state.hover === song;
+		this.setState({ hover: true });
+		if (this.hoverSong.isPlaying) {
 			console.log("this works");
 			}
 		 else {
 			console.log("this works too");
 			}
 		}
+	
 	
 
 	
@@ -83,7 +86,8 @@ class Album extends Component {
 					this.state.album.songs.map( (song, index) => 
 								<tr className="song" key={index} onClick={() => this.handleSongClick(song)} >
 									<div>
-									<span class="play" color="red" onMouseEnter={() => this.mouseHover(song)} id="song-index"> {index + 1} </span>
+									<tr id = "song-index"> {index + 1} </tr>
+									<span className="ion-pause" onMouseEnter={() => this.mouseHover(song)} > </span>
 									<tr id="song-title">{song.title}</tr>
 									<tr id="song-duration">{song.duration}</tr>
 									</div>

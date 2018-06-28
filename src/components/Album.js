@@ -53,11 +53,11 @@ class Album extends Component {
 	mouseHover(song){
 		const hoverSong = this.state.hover === song;
 		this.setState({ hover: true });
-		if (this.hoverSong.isPlaying) {
-			console.log("this works");
+		if (this.hoverSong.isPlaying === true) {
+			console.log("this works too");
 			}
 		 else {
-			console.log("this works too");
+			console.log("this works");
 			}
 		}
 	

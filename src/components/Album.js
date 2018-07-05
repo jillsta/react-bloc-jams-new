@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import albumData from './../data/albums';
 import { Link } from 'react-router-dom';
 import Ionicon from 'react-ionicons';
+import pause from './pause.svg';
+import play from './play.svg';
 
 
 class Album extends Component {
@@ -17,6 +19,8 @@ class Album extends Component {
       		currentSong: album.songs[0],
       		isPlaying: false,
       		hover: false,
+      		pause: pause,
+      		play: play,
 		};
 
 		this.audioElement = document.createElement('audio');
@@ -50,18 +54,14 @@ class Album extends Component {
    		}
    	}
 
-	mouseHover(song){
-		const hoverSong = this.state.hover === song;
-		this.setState({ hover: true });
-		if (this.hoverSong.isPlaying === true) {
-			console.log("this works too");
+   	mouseHover(song) {
+		if (this.song.isPlaying === true) {
+			this.setState{pause};
 			}
 		 else {
-			console.log("this works");
+			this.setState{play};
 			}
-		}
-	
-	
+		}	
 
 	
 	render() {

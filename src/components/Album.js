@@ -92,7 +92,7 @@ class Album extends Component {
 								<tr className="song" key={index} onClick={() => this.handleSongClick(song)} >
 									<div>
 									<tr id = "song-index"> {index + 1} </tr>
-									<span className={this.setIcon(song)}> </span>
+									<span className="set-icon" onMouseEnter = {(e) => this.setIcon(song)}> </span>
 									<tr id="song-title">{song.title}</tr>
 									<tr id="song-duration">{song.duration}</tr>
 									</div>

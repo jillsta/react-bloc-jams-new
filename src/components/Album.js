@@ -57,13 +57,13 @@ class Album extends Component {
 	
    	setIcon(song){
 	if (this.state.isPlaying && this.state.currentSong) {
-		this.setState.icon = pause;
+		this.setState({ icon: pause });
 	}
 	else if (!this.state.isSameSong) {
-		this.setState.icon = play;
+		this.setState({ icon: play });
 	}
 	else { 
-		this.setState.icon = pause;
+		this.setState({ icon: pause });
 	}
 }
 	

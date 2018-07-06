@@ -56,7 +56,6 @@ class Album extends Component {
    	}
 	
    	setIcon(song){
-   		const icon = icon;
 	if (this.state.isPlaying && this.state.currentSong) {
 		this.setState({ icon: pause });
 	}
@@ -93,7 +92,7 @@ class Album extends Component {
 								<tr className="song" key={index} onClick={() => this.handleSongClick(song)} >
 									<div>
 									<tr id = "song-index"> {index + 1} </tr>
-									<tr><img src = {this.state.icon} alt="play/pause"/></tr>
+									<span><img src = {this.state.icon} alt="play/pause"/></span>
 									<span className="set-icon" onMouseEnter = {(e) => this.setIcon(song)}> </span>
 									<tr id="song-title">{song.title}</tr>
 									<tr id="song-duration">{song.duration}</tr>

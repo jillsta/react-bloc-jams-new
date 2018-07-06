@@ -57,15 +57,16 @@ class Album extends Component {
 	
    	setIcon(song){
 	if (this.state.isPlaying && this.state.currentSong) {
-		icon = 'pause';
+		this.state.icon = pause;
+	}
 	}
 	else if (!this.state.isSameSong) {
-		icon = 'play';
+		this.state.icon = play;
 	}
 	else { 
-		icon = 'pause';
+		this.state.icon = pause;
 	}
-	}
+	
 
 	render() {
 
@@ -88,11 +89,10 @@ class Album extends Component {
 					<tbody>
 					{
 					this.state.album.songs.map( (song, index) => 
-								const icon = this.setIcon(song);
 								<tr className="song" key={index} onClick={() => this.handleSongClick(song)} >
 									<div>
 									<tr id = "song-index"> {index + 1} </tr>
-									<span className={icon}> </span>
+									<span className={this.setIcon(song)}> </span>
 									<tr id="song-title">{song.title}</tr>
 									<tr id="song-duration">{song.duration}</tr>
 									</div>

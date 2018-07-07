@@ -18,7 +18,8 @@ class Album extends Component {
 			album: album,
       		currentSong: album.songs[0],
       		isPlaying: false,
-      		hover: false,
+      		isHovering: false,
+      		selectedIndex: -1,
       		pause: pause,
       		play: play,
       		icon: "",
@@ -26,8 +27,7 @@ class Album extends Component {
 
 		this.audioElement = document.createElement('audio');
      	this.audioElement.src = album.songs[0].audioSrc;
-     	this.onMouseEnter = this.setState({hover: true});
-     	this.onMouseLeave = this.setState({hover: false});
+		this.handleMouseHover = this.handleMouseHover.bind(this);
 
 	}
 
@@ -55,18 +55,15 @@ class Album extends Component {
    		}
    	}
 	
-   	setIcon(song){
-	if (this.state.isPlaying && this.state.currentSong) {
-		this.setState({ icon: pause });
-	}
-	else if (!this.state.isSameSong) {
-		this.setState({ icon: play });
-	}
-	else { 
-		this.setState({ icon: pause });
-	}
-}
-	
+   handleMouseHover() {
+   	this.setState(this.toggleHoverState);
+   }
+
+   toggleHoverState(state) {
+   	return {
+   		isHovering: !state.isHovering,
+   	};
+   }
 
 	render() {
 
@@ -91,13 +88,14 @@ class Album extends Component {
 					this.state.album.songs.map( (song, index) => 
 								<tr className="song" key={index} onClick={() => this.handleSongClick(song)} >
 									<div>
-									<tr id = "song-index"> {index + 1} </tr>
-									<span><img src = {play} alt="play/pause"/></span>
-									<span><img src = {pause} alt="pause" /></span>
-									<span className="set-icon" onMouseEnter = {(e) => this.setIcon(song)}> </span>
+									<span id = "song-index" onMouseEnter={this.handleMouseHover}
+          								onMouseLeave={this.handleMouseHover}> {index + 1} </span>
+          							{this.state.currentSong && this.state.isHovering && this.state.isPlaying && <span><img src = {pause} alt="play/pause"/></span>}
+									{this.state.currentSong && this.state.isHovering && !this.state.isPlaying && <span><img src = {play} alt="play/pause"/></span>}			
 									<tr id="song-title">{song.title}</tr>
 									<tr id="song-duration">{song.duration}</tr>
 									</div>
+									
 								</tr>
 					)						
 					}	

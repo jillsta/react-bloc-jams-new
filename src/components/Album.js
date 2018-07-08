@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import albumData from './../data/albums';
 import { Link } from 'react-router-dom';
+import Ionicon from 'react-ionicons';
+import pause from './pause.svg';
+import play from './play.svg';
+import './Album.css'; 
 
 
 class Album extends Component {
 	constructor(props) {
 		super(props);
+
 		const album = albumData.find( album => {
 			return album.slug === this.props.match.params.slug
 		});
@@ -13,21 +18,30 @@ class Album extends Component {
 		this.state = {
 			album: album,
       		currentSong: album.songs[0],
-      		isPlaying: false
+      		isPlaying: false,
+      		isHovering: false,
+      		hoveredIndex: -1,
+      		pause: pause,
+      		play: play,
+      		icon: "",
 		};
 
 		this.audioElement = document.createElement('audio');
      	this.audioElement.src = album.songs[0].audioSrc;
+		this.handleMouseHover = this.handleMouseHover.bind(this);
+
 	}
 
 	play() {
      this.audioElement.play();
      this.setState({ isPlaying: true });
    	}
+
    	pause() {
    		this.audioElement.pause();
    		this.setState({ isPlaying: false });
    	}
+
    	setSong(song) {
    		this.audioElement.src = song.audioSrc;
    		this.setState({ currentSong: song });
@@ -41,9 +55,23 @@ class Album extends Component {
    			this.play();
    		}
    	}
+	
+   handleMouseHover(index) {
+   	this.setState(this.toggleHoverState);
+   	this.setState({
+      hoveredIndex: index,
+  	  });   	
+   }
+
+   toggleHoverState(state) {
+   	return {
+   		isHovering: !state.isHovering,
+   	};
+   }
 
 
 	render() {
+
 		return (
 			<section className="album">
 				<section id="album-info">
@@ -61,32 +89,28 @@ class Album extends Component {
 						<col id="song-duration-column" />
 					</colgroup>
 					<tbody>
-					{
+					{	
 					this.state.album.songs.map( (song, index) => 
-								<tr className="song" key={index} onClick={() => this.handleSongClick(song)} >	 
-									<div>
-									<tr id="song-index"> {index + 1} </tr>
+								<span className="song" key={index} onClick={() => this.handleSongClick(song)} >
+									<div className = "song-index" onMouseEnter={() => this.handleMouseHover(index)}
+									onMouseLeave={this.handleMouseHover}> 
+									{!this.state.isHovering && <span> {index + 1} </span>}
+									{this.state.hoveredIndex === index && this.state.currentSong === song && this.state.isHovering && this.state.isPlaying && <span><img className = "song-index" src = {pause} alt="pause"/></span>}
+									{this.state.hoveredIndex === index && this.state.isHovering && !this.state.isPlaying && <span><img className = "song-index" src = {play} alt="play"/></span>}
+									{this.state.hoveredIndex === index && this.state.currentSong === song.pause && this.state.isHovering && <span><img className = "song-index" src = {play} alt="pause2play"/></span>}			
 									<tr id="song-title">{song.title}</tr>
 									<tr id="song-duration">{song.duration}</tr>
-<<<<<<< HEAD
 									</div>
-								</tr>
-=======
-							</div>
-							</tr>
->>>>>>> HW-7-Audio
+								</span>
 					)						
-					}		
-					</tbody>
+					}
+					</tbody>	
+					<Ionicon icon="md-heart" isActive="false" fontSize="60px" color="red" />	
 				</table>
 			</section>	
 			);
 	}
 }
-<<<<<<< HEAD
 
 
-=======
-/* test */
->>>>>>> HW-7-Audio
 export default Album;

@@ -19,7 +19,7 @@ class Album extends Component {
       		currentSong: album.songs[0],
       		isPlaying: false,
       		isHovering: false,
-      		selectedIndex: -1,
+      		hoveredIndex: -1,
       		pause: pause,
       		play: play,
       		icon: "",
@@ -55,8 +55,11 @@ class Album extends Component {
    		}
    	}
 	
-   handleMouseHover() {
+   handleMouseHover(index) {
    	this.setState(this.toggleHoverState);
+   	this.setState({
+      hoveredIndex: index,
+  	  });   	
    }
 
    toggleHoverState(state) {
@@ -64,6 +67,7 @@ class Album extends Component {
    		isHovering: !state.isHovering,
    	};
    }
+
 
 	render() {
 
@@ -86,21 +90,21 @@ class Album extends Component {
 					<tbody>
 					{
 					this.state.album.songs.map( (song, index) => 
-								<tr className="song" key={index} onClick={() => this.handleSongClick(song)} >
+								<span className="song" key={index} onClick={() => this.handleSongClick(song)} onMouseEnter={() => this.handleMouseHover(index)}
+									onMouseLeave={this.handleMouseHover}>
+									{this.state.hoveredIndex === index && this.state.currentSong === song && this.state.isHovering && this.state.isPlaying && <span><img src = {pause} alt="pause"/></span>}
+									{this.state.hoveredIndex === index && this.state.isHovering && !this.state.isPlaying && <span><img src = {play} alt="play"/></span>}
+									{this.state.hoveredIndex === index && this.state.currentSong === song.pause && this.state.isHovering && <span><img src = {play} alt="pause2play"/></span>}	
 									<div>
-									<span id = "song-index" onMouseEnter={this.handleMouseHover}
-          								onMouseLeave={this.handleMouseHover}> {index + 1} </span>
-          							{this.state.currentSong && this.state.isHovering && this.state.isPlaying && <span><img src = {pause} alt="play/pause"/></span>}
-									{this.state.currentSong && this.state.isHovering && !this.state.isPlaying && <span><img src = {play} alt="play/pause"/></span>}			
+									<span id = "song-index"> {index + 1} </span>		
 									<tr id="song-title">{song.title}</tr>
 									<tr id="song-duration">{song.duration}</tr>
 									</div>
-									
-								</tr>
+								</span>
 					)						
-					}	
+					}
+					</tbody>	
 					<Ionicon icon="md-heart" isActive="false" fontSize="60px" color="red" />	
-					</tbody>
 				</table>
 			</section>	
 			);

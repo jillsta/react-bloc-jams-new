@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Ionicon from 'react-ionicons';
 import pause from './pause.svg';
 import play from './play.svg';
-import './Album.css'; 
+
 
 
 class Album extends Component {

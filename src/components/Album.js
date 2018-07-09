@@ -56,19 +56,20 @@ class Album extends Component {
    		}
    	}
 	
-   handleMouseHover(index) {
-   	this.setState(this.toggleHoverState);
-   	this.setState({
+   handleMouseHover(song,index){
+    this.setState({
+      isHovering: true,
       hoveredIndex: index,
-  	  });   	
-   }
+      currentSong: song
+    });
 
-   toggleHoverState(state) {
-   	return {
-   		isHovering: !state.isHovering,
-   	};
-   }
+  }
 
+  unHover(){
+    this.setState({
+      isHovering: false
+    });
+  }
 
 	render() {
 
@@ -87,29 +88,29 @@ class Album extends Component {
 						<div id="song-title-column" />
 						<div id="song-duration-column" />
 					</div>
-					<div>
+					<tbody align="center">
 					{	
-					this.state.album.songs.map( (song, index) => 
-								<span className="hoverSong" onMouseEnter={() => this.handleMouseHover(index)} onMouseLeave={this.handleMouseHover}> 
-								<span className="song" key={index} onClick={() => this.handleSongClick(song)}> 
-									{!this.state.isHovering && this.state.hoverIndex !== index && <span> {index + 1} </span>}
+					this.state.album.songs.map( (song, index) =>  
+								<tr className="song" key={index} onClick={() => this.handleSongClick(song)}> 
+								<tr className="hoverSong" onMouseEnter={(song) => this.handleMouseHover(song,index)} onMouseLeave={() => this.unHover(index)}>
+									{!this.state.isHovering && this.state.hoverIndex !== index && <tr> {index + 1} </tr>}
 										{this.state.hoveredIndex === index && this.state.currentSong === song && this.state.isHovering 
-											&& this.state.isPlaying && <span><img className = "song-index" src = {pause} 
-											width={45} height={45} alt="pause"/></span>}
+											&& this.state.isPlaying && <tr><img className = "song-index" src = {pause} 
+											width={45} height={45} alt="pause"/></tr>}
 										{this.state.hoveredIndex === index && this.state.isHovering && !this.state.isPlaying 
-											&& <span><img className = "song-index" src = {play} width={45} height={45} 
-											alt="play"/></span>}
+											&& <tr><img className = "song-index" src = {play} width={45} height={45} 
+											alt="play"/></tr>}
 										{this.state.hoveredIndex === index && this.state.currentSong === song.pause && 
-											this.state.isHovering && <span><img className = "song-index" src = {play} 
-											width={45} height={45} alt="pause2play"/></span>}		
+											this.state.isHovering && <tr><img className = "song-index" src = {play} 
+											width={45} height={45} alt="pause2play"/></tr>}		
 
-									<div id="song-title">{song.title}</div>
-									<div id="song-duration">{song.duration}</div>
-								</span>
-								</span>
+									<tr id="song-title">{song.title}</tr>
+									<tr id="song-duration">{song.duration}</tr>
+								</tr>
+								</tr>
 					)						
 					}
-					</div>	
+					</tbody>
 					<Ionicon icon="md-heart" isActive="false" fontSize="60px" color="red" />
 			</section>	
 			);

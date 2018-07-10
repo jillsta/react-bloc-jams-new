@@ -5,7 +5,7 @@ import Ionicon from 'react-ionicons';
 import pause from './pause.svg';
 import play from './play.svg';
 import Image from 'react-image-resizer';
-
+import styles from './Album.css';
 
 class Album extends Component {
 	constructor(props) {
@@ -58,21 +58,19 @@ class Album extends Component {
 	
    handleMouseHover(song,index){
     this.setState({
-      isHovering: true,
-      hoveredIndex: index,
-      currentSong: song
-    });
+      	hoveredIndex: index,
+      	isHovering: true
+    	});
+	} 
 
-  }
-
-  unHover(){
+  unHover(e,index){
     this.setState({
-      isHovering: false
+      isHovering: false,
+      hoveredIndex: -1
     });
   }
 
 	render() {
-
 		return (
 			<section className="album">
 				<section id="album-info">
@@ -91,9 +89,10 @@ class Album extends Component {
 					<tbody align="center">
 					{	
 					this.state.album.songs.map( (song, index) =>  
-								<tr className="song" key={index} onClick={() => this.handleSongClick(song)}> 
-								<tr className="hoverSong" onMouseEnter={(song) => this.handleMouseHover(song,index)} onMouseLeave={() => this.unHover(index)}>
-									{!this.state.isHovering && this.state.hoverIndex !== index && <tr> {index + 1} </tr>}
+								<tr id="song" key={index} onClick={() => this.handleSongClick(song)}> 
+								<tr id="hoverSong" onMouseEnter={(song) => this.handleMouseHover(song,index)} onMouseLeave={(e) => this.unHover(e,index)}>
+									
+										{<tr className="index"> {index + 1} </tr>}
 										{this.state.hoveredIndex === index && this.state.currentSong === song && this.state.isHovering 
 											&& this.state.isPlaying && <tr><img className = "song-index" src = {pause} 
 											width={45} height={45} alt="pause"/></tr>}

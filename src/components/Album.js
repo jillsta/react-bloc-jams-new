@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import Ionicon from 'react-ionicons';
 import pause from './pause.svg';
 import play from './play.svg';
-
-
+import Image from 'react-image-resizer';
+import styles from './Album.css';
 
 class Album extends Component {
 	constructor(props) {
@@ -56,22 +56,21 @@ class Album extends Component {
    		}
    	}
 	
-   handleMouseHover(index) {
-   	this.setState(this.toggleHoverState);
-   	this.setState({
-      hoveredIndex: index,
-  	  });   	
-   }
+   handleMouseHover(song,index){
+    this.setState({
+      	hoveredIndex: index,
+      	isHovering: true
+    	});
+	} 
 
-   toggleHoverState(state) {
-   	return {
-   		isHovering: !state.isHovering,
-   	};
-   }
-
+  unHover(e,index){
+    this.setState({
+      isHovering: false,
+      hoveredIndex: -1
+    });
+  }
 
 	render() {
-
 		return (
 			<section className="album">
 				<section id="album-info">
@@ -113,6 +112,31 @@ class Album extends Component {
 					)						
 					}
 					</div>	
+					<tbody align="center">
+					{	
+					this.state.album.songs.map( (song, index) =>  
+								<tr id="song" key={index} onClick={() => this.handleSongClick(song)}> 
+								<tr id="hoverSong" onMouseEnter={(song) => this.handleMouseHover(song,index)} onMouseLeave={(e) => this.unHover(e,index)}>
+									
+										{<tr className="index"> {index + 1} </tr>}
+										{this.state.hoveredIndex === index && this.state.currentSong === song && this.state.isHovering 
+											&& this.state.isPlaying && <tr><img className = "song-index" src = {pause} 
+											width={45} height={45} alt="pause"/></tr>}
+										{this.state.hoveredIndex === index && this.state.isHovering && !this.state.isPlaying 
+											&& <tr><img className = "song-index" src = {play} width={45} height={45} 
+											alt="play"/></tr>}
+										{this.state.hoveredIndex === index && this.state.currentSong === song.pause && 
+											this.state.isHovering && <tr><img className = "song-index" src = {play} 
+											width={45} height={45} alt="pause2play"/></tr>}		
+
+									<tr id="song-title">{song.title}</tr>
+									<tr id="song-duration">{song.duration}</tr>
+								</tr>
+								</tr>
+					)						
+					}
+					</tbody>
+>>>>>>> HW-7-Playback
 					<Ionicon icon="md-heart" isActive="false" fontSize="60px" color="red" />
 			</section>	
 			);

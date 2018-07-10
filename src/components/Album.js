@@ -86,32 +86,6 @@ class Album extends Component {
 						<div id="song-title-column" />
 						<div id="song-duration-column" />
 					</div>
-					<div>
-					{	
-					this.state.album.songs.map( (song, index) => 
-								<span className="song" key={index} onClick={() => this.handleSongClick(song)} >
-									<div className = "song-index" onMouseEnter={() => this.handleMouseHover(index)}
-									onMouseLeave={this.handleMouseHover}> 
-										{!this.state.isHovering && this.state.hoverIndex !== index && <span> {index + 1} </span>}
-
-										{this.state.hoveredIndex === index && this.state.currentSong === song && this.state.isHovering 
-											&& this.state.isPlaying && <span><img className = "song-index" src = {pause} 
-											alt="pause"/></span>}
-
-										{this.state.hoveredIndex === index && this.state.isHovering && !this.state.isPlaying 
-											&& <span><img className = "song-index" src = {play} alt="play"/></span>}
-
-										{this.state.hoveredIndex === index && this.state.currentSong === song.pause && 
-											this.state.isHovering && <span><img className = "song-index" src = {play} 
-											alt="pause2play"/></span>}		
-
-									<div id="song-title">{song.title}</div>
-									<div id="song-duration">{song.duration}</div>
-									</div>
-								</span>
-					)						
-					}
-					</div>	
 					<tbody align="center">
 					{	
 					this.state.album.songs.map( (song, index) =>  
@@ -136,7 +110,6 @@ class Album extends Component {
 					)						
 					}
 					</tbody>
->>>>>>> HW-7-Playback
 					<Ionicon icon="md-heart" isActive="false" fontSize="60px" color="red" />
 			</section>	
 			);

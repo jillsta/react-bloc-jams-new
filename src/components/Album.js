@@ -23,7 +23,7 @@ class Album extends Component {
       		hoveredIndex: -1,
       		pause: pause,
       		play: play,
-      		icon: "",
+      		imgSource: {}
 		};
 
 		this.audioElement = document.createElement('audio');
@@ -61,9 +61,29 @@ class Album extends Component {
       	hoveredIndex: index,
       	isHovering: true
     	});
-	} 
+    if (this.state.hoveredIndex === index && this.state.currentSong === song && this.state.isHovering 
+		&& this.state.isPlaying) return {
+    	imgSource: {play}
+	} else {
+		if (this.state.hoveredIndex === index && this.state.isHovering && !this.state.isPlaying)
+		return {
+			imgSource: {pause}
+		}
+		} 
+	else {
+		if (this.state.hoveredIndex === index && this.state.currentSong === song.pause && 
+		this.state.isHovering) return {
+			imgSource: {play}
+	}
+	}
+	else return {
+		imgSource: {index} 
+	}
+}
+	
 
-  unHover(e,index){
+
+  unHover(e, index) {
     this.setState({
       isHovering: false,
       hoveredIndex: -1
@@ -90,21 +110,10 @@ class Album extends Component {
 					{	
 					this.state.album.songs.map( (song, index) =>  
 								<tr id="song" key={index} onClick={() => this.handleSongClick(song)}> 
-								<tr id="hoverSong" onMouseEnter={(song) => this.handleMouseHover(song,index)} onMouseLeave={(e) => this.unHover(e,index)}>
-									
-										{<tr className="index"> {index + 1} </tr>}
-										{this.state.hoveredIndex === index && this.state.currentSong === song && this.state.isHovering 
-											&& this.state.isPlaying && <tr><img className = "song-index" src = {pause} 
-											width={45} height={45} alt="pause"/></tr>}
-										{this.state.hoveredIndex === index && this.state.isHovering && !this.state.isPlaying 
-											&& <tr><img className = "song-index" src = {play} width={45} height={45} 
-											alt="play"/></tr>}
-										{this.state.hoveredIndex === index && this.state.currentSong === song.pause && 
-											this.state.isHovering && <tr><img className = "song-index" src = {play} 
-											width={45} height={45} alt="pause2play"/></tr>}		
-
-									<tr id="song-title">{song.title}</tr>
-									<tr id="song-duration">{song.duration}</tr>
+								<tr id="hoverSong" onMouseEnter={(song) => this.handleMouseHover(song,index)} onMouseLeave={(e) => this.unHover(e,index)}>	
+								{<tr className="index"> {index + 1} </tr>}
+								<tr id="song-title">{song.title}</tr>
+								<tr id="song-duration">{song.duration}</tr>
 								</tr>
 								</tr>
 					)						

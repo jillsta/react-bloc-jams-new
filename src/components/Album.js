@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import albumData from './../data/albums';
-import { Link } from 'react-router-dom';
+
 import Ionicon from 'react-ionicons';
 import pause from './pause.svg';
 import play from './play.svg';
-import Image from 'react-image-resizer';
-import styles from './Album.css';
+
+
 
 class Album extends Component {
 	constructor(props) {
@@ -86,6 +86,7 @@ class Album extends Component {
 						<div id="song-title-column" />
 						<div id="song-duration-column" />
 					</div>
+					<table>
 					<tbody align="center">
 					{	
 					this.state.album.songs.map( (song, index) =>  
@@ -110,6 +111,7 @@ class Album extends Component {
 					)						
 					}
 					</tbody>
+					</table>
 					<Ionicon icon="md-heart" isActive="false" fontSize="60px" color="red" />
 			</section>	
 			);

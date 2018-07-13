@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import albumData from './../data/albums';
-
+import PlayerBar from './PlayerBar';
 import Ionicon from 'react-ionicons';
 import pause from './pause.svg';
 import play from './play.svg';
@@ -70,6 +70,14 @@ class Album extends Component {
     });
   }
 
+  handlePrevClick() {
+  	const currentIndex = this.state.album.songs.findIndex(song => this.state.currentSong === song);
+  	const newIndex = Math.max(0, currentIndex - 1);
+  	const newSong = this.state.album.songs[newIndex];
+  	this.setSong(newSong);
+  	this.play();
+  }
+
 	render() {
 		return (
 			<section className="album">
@@ -81,12 +89,12 @@ class Album extends Component {
 						<div id="release-info">{this.state.album.releaseInfo}</div>
 					</div>
 				</section>
-				<div id="song-list">
+				<table id="song-list">
+					<colgroup>
 						<div id="song-number-column" />
 						<div id="song-title-column" />
 						<div id="song-duration-column" />
-					</div>
-					<table>
+					</colgroup>
 					<tbody align="center">
 					{	
 					this.state.album.songs.map( (song, index) =>  
@@ -95,14 +103,11 @@ class Album extends Component {
 									
 										{<tr className="index"> {index + 1} </tr>}
 										{this.state.hoveredIndex === index && this.state.currentSong === song && this.state.isHovering 
-											&& this.state.isPlaying && <tr><img className = "song-index" src = {pause} 
-											width={45} height={45} alt="pause"/></tr>}
+											&& this.state.isPlaying && <button id="play-pause"><span className="ion-pause"></span></button>}
 										{this.state.hoveredIndex === index && this.state.isHovering && !this.state.isPlaying 
-											&& <tr><img className = "song-index" src = {play} width={45} height={45} 
-											alt="play"/></tr>}
+											&& <button id="play-pause"><span className="ion-play"></span></button>}
 										{this.state.hoveredIndex === index && this.state.currentSong === song.pause && 
-											this.state.isHovering && <tr><img className = "song-index" src = {play} 
-											width={45} height={45} alt="pause2play"/></tr>}		
+											this.state.isHovering && <button id="play-pause"><span className="ion-play"></span></button>}		
 
 									<tr id="song-title">{song.title}</tr>
 									<tr id="song-duration">{song.duration}</tr>
@@ -112,6 +117,12 @@ class Album extends Component {
 					}
 					</tbody>
 					</table>
+					<PlayerBar 
+						isPlaying={this.state.isPlaying} 
+						currentSong={this.state.currentSong} 
+						handleSongClick={() => this.handleSongClick(this.state.currentSong)}
+						handlePrevClick={() => this.handlePrevClick()}
+					/>
 					<Ionicon icon="md-heart" isActive="false" fontSize="60px" color="red" />
 			</section>	
 			);

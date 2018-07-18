@@ -35,7 +35,7 @@ class Album extends Component {
 			return (<div className="ion-play"></div>);
 		} else if (this.state.hoveredIndex === index && this.state.currentSong === song && this.state.isHovering && this.state.isPlaying) {
 			return (<div className="ion-pause"></div>);
-		} else if (this.state.hoveredIndex === index && this.state.currentSong === song.pause && this.state.isHovering) {
+		} else if (this.state.hoveredIndex === index && this.state.currentSong !== song.pause && this.state.isHovering) {
 			return (<div className="ion-play"></div>);
 		}		
 		else {

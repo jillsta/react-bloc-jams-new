@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import albumData from './../data/albums';
 import PlayerBar from './PlayerBar';
-import Ionicon from 'react-ionicons';
 import pause from './pause.svg';
 import play from './play.svg';
 
@@ -23,13 +22,25 @@ class Album extends Component {
       		hoveredIndex: -1,
       		pause: pause,
       		play: play,
-      		icon: "",
 		};
 
 		this.audioElement = document.createElement('audio');
      	this.audioElement.src = album.songs[0].audioSrc;
 		this.handleMouseHover = this.handleMouseHover.bind(this);
 
+	}
+
+	hoverIcon(index,song) {
+		if (this.state.hoveredIndex === index && this.state.isHovering && !this.state.isPlaying) {
+			return (<div className="ion-play"></div>);
+		} else if (this.state.hoveredIndex === index && this.state.currentSong === song && this.state.isHovering && this.state.isPlaying) {
+			return (<div className="ion-pause"></div>);
+		} else if (this.state.hoveredIndex === index && this.state.currentSong === song.pause && this.state.isHovering) {
+			return (<div className="ion-play"></div>);
+		}		
+		else {
+		return (index + 1);
+		}
 	}
 
 	play() {
@@ -88,6 +99,7 @@ class Album extends Component {
 
 	render() {
 		return (
+			console.log(this.hoverIcon),
 			<section className="album">
 				<section id="album-info">
 					<img id="album-cover-art" src={this.state.album.albumCover} alt={this.state.album.title} />
@@ -107,17 +119,13 @@ class Album extends Component {
 					</colgroup>
 					<tbody>	
 					{
-					this.state.album.songs.map((song, index)=>
-						<tr className="hover-song-play" key={index} onClick={() => this.handleSongClick(song)} onMouseEnter={(song) => this.handleMouseHover(song,index)} onMouseLeave={(e) => this.unHover(e,index)}>
-						<td id={index}>{index+1}</td>
-						{this.state.hoveredIndex === index && this.state.currentSong === song && this.state.isHovering && this.state.isPlaying && <td id={index} className="ion-pause"></td>}
-						{this.state.hoveredIndex === index && this.state.isHovering && !this.state.isPlaying && <td id={index} className="ion-play"></td>}
-						{this.state.hoveredIndex === index && this.state.currentSong === song.pause && this.state.isHovering && <td id={index} className="ion-play"></td>}	
-						<td id={index} className="song-title">{song.title}</td>
-						<td id={index} className="song-duration">{song.duration}</td>
+						this.state.album.songs.map((song, index)=>
+						<tr key={index} onClick={() => this.handleSongClick(song)}>
+						<td className="hover-song-play" onMouseEnter={(song) => this.handleMouseHover(song,index)} onMouseLeave={(e) => this.unHover(e,index)}>{this.hoverIcon(index,song)}</td>
+						<td className="song-title">{song.title}</td>
+						<td className="song-duration">{song.duration}</td>
 						</tr>
-					)			
-					}
+					)}
 					</tbody>	
 				</table>
 				</div>
@@ -129,7 +137,6 @@ class Album extends Component {
 					handlePrevClick={() => this.handlePrevClick()}
 					handleNextClick={() => this.handleNextClick()}
 				/>
-				<Ionicon icon="md-heart" isActive="false" fontSize="60px" color="red" />
 				</section>	
 			);
 

@@ -3,13 +3,12 @@ import albumData from './../data/albums';
 import PlayerBar from './PlayerBar';
 import pause from './pause.svg';
 import play from './play.svg';
-
+import Slider from 'react-rangeslider';
 
 
 class Album extends Component {
 	constructor(props) {
 		super(props);
-
 		const album = albumData.find( album => {
 			return album.slug === this.props.match.params.slug
 		});
@@ -17,17 +16,39 @@ class Album extends Component {
 		this.state = {
 			album: album,
       		currentSong: album.songs[0],
+      		currentTime: 0,
+      		duration: album.songs[0].duration,
       		isPlaying: false,
       		isHovering: false,
       		hoveredIndex: -1,
       		pause: pause,
       		play: play,
+      		volume: 0,
+      		value: 10,
 		};
 
 		this.audioElement = document.createElement('audio');
      	this.audioElement.src = album.songs[0].audioSrc;
 		this.handleMouseHover = this.handleMouseHover.bind(this);
+	}
 
+	componentDidMount(){
+		this.eventListeners = {
+			timeupdate: e => {
+			this.setState({ currentTime: this.audioElement.currentTime });
+		},
+			durationchange: e => {
+			this.setState({ duration: this.audioElement.duration });
+		}
+	};
+	this.audioElement.addEventListener('timeupdate', this.eventListeners.timeupdate);
+	this.audioElement.addEventListener('durationchange', this.eventListeners.durationchange);
+	}
+
+	componentWillUnmount() {
+		this.audioElement.src = null;
+		this.audioElement.removeEventListener('timeupdate', this.eventListeners.timeupdate);
+		this.audioElement.removeEventListener('durationchange', this.eventListeners.durationchange);
 	}
 
 	hoverIcon(index,song) {
@@ -97,6 +118,18 @@ class Album extends Component {
   	this.play();
   }
 
+  	handleTimeChange(e) {
+  		const newTime = this.audioElement.duration * e.target.value;
+  		this.audioElement.currentTime = newTime;
+  		this.setState({ currentTime: newTime });
+  	}
+
+  	handleOnChange = (value) => {
+    this.setState({
+      volume: value
+    })
+  }
+
 	render() {
 		return (
 			<section className="album">
@@ -131,10 +164,21 @@ class Album extends Component {
 				</section>	
 				<PlayerBar 
 					isPlaying={this.state.isPlaying} 
-					currentSong={this.state.currentSong} 
+					currentSong={this.state.currentSong}
+					currentTime={this.audioElement.currentTime}
+					duration={this.audioElement.duration} 
 					handleSongClick={() => this.handleSongClick(this.state.currentSong)}
 					handlePrevClick={() => this.handlePrevClick()}
 					handleNextClick={() => this.handleNextClick()}
+					handleTimeChange={(e) => this.handleTimeChange(e)}
+				/>
+				<Slider
+					min={0}
+					max={50}
+					step={1}
+					value={this.state.volume}
+        			orientation="vertical"
+        			onChange={(e) => this.handleOnChange(e)}
 				/>
 				</section>	
 			);

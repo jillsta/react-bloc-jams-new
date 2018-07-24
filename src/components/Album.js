@@ -25,6 +25,7 @@ class Album extends Component {
       		pause: pause,
       		play: play,
       		volume: 0,
+      		value: 10,
 		};
 
 		this.audioElement = document.createElement('audio');
@@ -125,6 +126,7 @@ class Album extends Component {
   	}
 
   	handleVChange(value) {
+  		const volume = this.audioElement.volume;
     	this.setState({ volume: value });
   }
 

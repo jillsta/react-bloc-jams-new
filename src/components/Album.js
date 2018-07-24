@@ -126,8 +126,9 @@ class Album extends Component {
   	}
 
   	handleVChange(value) {
-  		const volume = this.audioElement.volume;
+  		this.audioElement.volume = value;
     	this.setState({ volume: value });
+    	console.log(this.state.volume);
   }
 
 	render() {
@@ -168,6 +169,7 @@ class Album extends Component {
 					currentTime={this.audioElement.currentTime}
 					duration={this.audioElement.duration}
 					volume={this.state.volume}
+					value={this.state.value}
 					handleSongClick={() => this.handleSongClick(this.state.currentSong)}
 					handlePrevClick={() => this.handlePrevClick()}
 					handleNextClick={() => this.handleNextClick()}

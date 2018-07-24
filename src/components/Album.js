@@ -3,7 +3,6 @@ import albumData from './../data/albums';
 import PlayerBar from './PlayerBar';
 import pause from './pause.svg';
 import play from './play.svg';
-import Slider from 'react-rangeslider';
 import 'react-rangeslider/lib/index.css';
 
 
@@ -128,7 +127,6 @@ class Album extends Component {
   	handleVChange(value) {
   		this.audioElement.volume = value;
     	this.setState({ volume: value });
-    	console.log(this.state.volume);
   }
 
 	render() {

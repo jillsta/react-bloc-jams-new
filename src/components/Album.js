@@ -4,6 +4,7 @@ import PlayerBar from './PlayerBar';
 import pause from './pause.svg';
 import play from './play.svg';
 import Slider from 'react-rangeslider';
+import 'react-rangeslider/lib/index.css';
 
 
 class Album extends Component {
@@ -24,7 +25,6 @@ class Album extends Component {
       		pause: pause,
       		play: play,
       		volume: 0,
-      		value: 10,
 		};
 
 		this.audioElement = document.createElement('audio');
@@ -124,10 +124,8 @@ class Album extends Component {
   		this.setState({ currentTime: newTime });
   	}
 
-  	handleOnChange = (value) => {
-    this.setState({
-      volume: value
-    })
+  	handleVChange(value) {
+    	this.setState({ volume: value });
   }
 
 	render() {
@@ -166,19 +164,13 @@ class Album extends Component {
 					isPlaying={this.state.isPlaying} 
 					currentSong={this.state.currentSong}
 					currentTime={this.audioElement.currentTime}
-					duration={this.audioElement.duration} 
+					duration={this.audioElement.duration}
+					volume={this.state.volume}
 					handleSongClick={() => this.handleSongClick(this.state.currentSong)}
 					handlePrevClick={() => this.handlePrevClick()}
 					handleNextClick={() => this.handleNextClick()}
 					handleTimeChange={(e) => this.handleTimeChange(e)}
-				/>
-				<Slider
-					min={0}
-					max={50}
-					step={1}
-					value={this.state.volume}
-        			orientation="vertical"
-        			onChange={(e) => this.handleOnChange(e)}
+					handleVChange={(e) => this.handleVChange(e)}
 				/>
 				</section>	
 			);

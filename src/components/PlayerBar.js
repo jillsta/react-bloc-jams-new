@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Slider from 'react-rangeslider';
+import 'react-rangeslider/lib/index.css';
 
 class PlayerBar extends Component {
 	render() {
@@ -35,10 +36,11 @@ class PlayerBar extends Component {
 						type="range"
 						className="volume-slider"
 						value={this.props.volume}
+						volume={this.props.volume}
+						onChange={this.props.handleVChange}
 						min={0}
 						max={50}
 						step={1}
-						onChange={this.props.handleOnChange}
 						/>
 					<div className="icon ion-volume-high"></div>		
 				</section>

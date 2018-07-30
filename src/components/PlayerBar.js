@@ -29,7 +29,7 @@ class PlayerBar extends Component {
 
   	formatDuration(duration) {
   		if (isNaN(duration)) {
-  			return "";
+  			return "-:--";
   		} else {
   		let durSt = duration.toString();
   		let minutes = Math.floor(durSt/60);

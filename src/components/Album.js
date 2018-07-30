@@ -129,6 +129,15 @@ class Album extends Component {
     	this.setState({ volume: value });
   }
 
+  	formatDuration(duration) {
+  		let durSt = duration.toString();
+  		let minutes = Math.floor(durSt/60);
+  		let seconds = durSt - minutes * 60;
+  		let minSec = minutes+':'+seconds;
+  		return minSec.slice(0,4);
+  	}
+
+  	
 	render() {
 		return (
 			<section className="album">
@@ -149,12 +158,12 @@ class Album extends Component {
 						<col id="song-duration-column"/>
 					</colgroup>
 					<tbody>	
-					{
+					{						
 						this.state.album.songs.map((song, index)=>
 						<tr key={index} onClick={() => this.handleSongClick(song)}>
 						<td className="hover-song-play" onMouseEnter={(song) => this.handleMouseHover(song,index)} onMouseLeave={(e) => this.unHover(e,index)}>{this.hoverIcon(index,song)}</td>
 						<td className="song-title">{song.title}</td>
-						<td className="song-duration">{song.duration}</td>
+						<td className="song-duration">{this.formatDuration(song.duration)}</td>
 						</tr>
 					)}
 					</tbody>	

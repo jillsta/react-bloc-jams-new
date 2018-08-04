@@ -23,8 +23,7 @@ class Album extends Component {
       		hoveredIndex: -1,
       		pause: pause,
       		play: play,
-      		volume: 0,
-      		value: 10,
+      		volume: .5,
 		};
 
 		this.audioElement = document.createElement('audio');
@@ -176,7 +175,6 @@ class Album extends Component {
 					currentTime={this.audioElement.currentTime}
 					duration={this.audioElement.duration}
 					volume={this.state.volume}
-					value={this.state.value}
 					handleSongClick={() => this.handleSongClick(this.state.currentSong)}
 					handlePrevClick={() => this.handlePrevClick()}
 					handleNextClick={() => this.handleNextClick()}

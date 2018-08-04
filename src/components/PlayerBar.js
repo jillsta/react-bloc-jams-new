@@ -9,12 +9,12 @@ class PlayerBar extends Component {
 		let minutes = Math.floor(timeSt/60);
   		let seconds = timeSt - minutes * 60;
   		if (seconds < 10 && minutes === 0) {
-  			timeSt = ':'+'0'+seconds;
-  			timeSt = timeSt.slice(0,3);
+  			timeSt = '0'+':'+'0'+seconds;
+  			timeSt = timeSt.slice(0,4);
   		}
-  		else if (timeSt < 60 && minutes === 0) {
-  			timeSt = ':'+seconds;
-  			timeSt = timeSt.slice(0,3);
+  		else if (timeSt > 9 && minutes === 0) {
+  			timeSt = '0'+':'+seconds;
+  			timeSt = timeSt.slice(0,4);
   		}
   		else if (timeSt > 59 && seconds < 10) {
   			timeSt = minutes+':'+'0'+seconds;
@@ -73,12 +73,12 @@ class PlayerBar extends Component {
 				<Slider
 						type="range"
 						className="volume-slider"
-						value={this.props.volume}
 						volume={this.props.volume}
 						onChange={this.props.handleVChange}
 						min={0}
 						max={1}
 						step={.01}
+						value={this.props.volume}
 						/>
 					<div className="icon ion-volume-high"></div>		
 				</section>

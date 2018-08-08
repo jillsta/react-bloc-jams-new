@@ -1,3 +1,41 @@
-tr #index:hover {
-	visibility: hidden;
+.album {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	height: 100%;
+	margin-top: 100px;
+	background-color: gray;
+	align-items: center;
+	border: 5px;
+	border: 2px solid darkred;
+}
+
+.play-songs {
+	font-size: 30px;
+	text-align: left;
+	background-color: #A00000;
+	color: #D8D8D8;
+}
+
+.song-title {
+	font-family: Papyrus;
+}
+
+
+td {
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-top: 10px;
+}
+
+.album-details {
+	margin-top: -50px;
+}
+
+h1 {
+	color: white;
+}
+
+.release-info {
+	margin-top: -20px;
 }

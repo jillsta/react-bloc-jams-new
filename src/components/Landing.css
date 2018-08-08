@@ -1,0 +1,72 @@
+
+.html{
+	scroll-behavior: smooth;
+
+}
+
+.landing {
+	background-color: #778899;
+}
+
+.selling-points {
+	display: flex;
+}
+
+.point {
+	display: flex;
+	flex-direction: column;
+	margin: 0 auto;
+	max-width: 300px;
+  	max-height: 300px;
+  	border: solid 5px #ccc;
+  	padding-top: 100px;
+  	padding-bottom: 100px;
+  	padding-left: 20px;
+  	padding-right: 20px;
+  	background-color: #DCDCDC;
+  	justify-content: space-around;
+  	align-items: center;
+}
+
+.point-title1 {
+	animation: 3s slidein;
+}
+
+.choose-record {
+	animation: 3s slidein;
+}
+
+.point-description1 {
+	animation: 7s slidein;
+}
+
+.point-title2 {
+	animation: 3s slidein;
+}
+
+.music-enjoy {
+	animation: 3s slidein;
+}
+
+.point-description2 {
+	animation: 7s slidein;
+}
+
+.point-title3 {
+	animation: 3s slidein;
+}
+
+.headphones-go {
+	animation: 3s slidein;
+}
+
+.point-description3 {
+	animation: 7s slidein;
+}
+
+
+@keyframes slidein {
+  from {opacity: .1} 
+  to {opacity: 1}
+}
+

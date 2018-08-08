@@ -4,18 +4,21 @@ import './App.css';
 import Landing from './components/Landing';
 import Library from './components/Library';
 import Album from './components/Album';
+import record from './record.gif';
+import headlogo from './headlogo.gif';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header>
-          <nav>
-            <Link to='/'>Landing</Link>
-            <Link to='/library'>Library</Link>
-          </nav>
-          <h1>Bloc Jams</h1>
+        <header className = "header-logos">
+          <img className="Main-logo" src={headlogo}/>
         </header>
+        <nav>
+            <Link to='/' className="nav">Home</Link>
+            <img className="Record-logo" src={record}/>
+            <Link to='/library' className="nav">Library</Link>
+          </nav>
         <main>
           <Route exact path="/" component={Landing} />
           <Route path="/library" component={Library} />

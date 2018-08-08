@@ -2,9 +2,29 @@
   text-align: center;
 }
 
-.App-logo {
+.nav:hover {
+  color: white;
+}
+
+.Record-logo {
   animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+  height: 130px;
+  position: relative;
+  top: 10px;
+}
+
+.Main-logo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 200px;
+}
+
+.nav {
+  background-color: #B22222;
+  padding: 20px;
+  padding-left: 30px;
+  padding-right: 30px;
 }
 
 .App-header {

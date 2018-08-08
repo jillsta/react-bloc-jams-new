@@ -1,0 +1,15 @@
+.library {
+	margin-top: 80px;
+	display: flex;
+	flex-direction: row;
+	height: 100%;
+	justify-content: space-around;
+	background-color: gray;
+
+}
+
+.album-data:hover {
+	color: white;
+}
+
+

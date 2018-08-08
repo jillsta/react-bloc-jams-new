@@ -4,7 +4,8 @@ import PlayerBar from './PlayerBar';
 import pause from './pause.svg';
 import play from './play.svg';
 import 'react-rangeslider/lib/index.css';
-
+import Image from 'react-image-resizer';
+import './Album.css';
 
 class Album extends Component {
 	constructor(props) {
@@ -141,11 +142,11 @@ class Album extends Component {
 		return (
 			<section className="album">
 				<section id="album-info">
-					<img id="album-cover-art" src={this.state.album.albumCover} alt={this.state.album.title} />
+					<img id="album-cover-art" src={this.state.album.albumCover} alt={this.state.album.title} height={300} width={300} />
 					<div className="album-details">
-						<h1 id="album-title">{this.state.album.title}</h1>
+						<h1 className="album-title">{this.state.album.title}</h1>
 						<h2 className="artist">{this.state.album.artist}</h2>
-						<div id="release-info">{this.state.album.releaseInfo}</div>
+						<div className="release-info">{this.state.album.releaseInfo}</div>
 					</div>
 				</section>
 				<section className="songs">
@@ -156,7 +157,7 @@ class Album extends Component {
 						<col id="song-title-column"/>
 						<col id="song-duration-column"/>
 					</colgroup>
-					<tbody>	
+					<tbody className="play-songs">	
 					{						
 						this.state.album.songs.map((song, index)=>
 						<tr key={index} onClick={() => this.handleSongClick(song)}>
